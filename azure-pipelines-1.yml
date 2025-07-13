@@ -1,0 +1,35 @@
+trigger:
+
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'agent-devops-pipeline'
+
+steps:
+  - checkout: none
+
+  - script: |
+      target_file_name="schema.json"
+      if [ -d "tution" ]; then
+        echo "Removing existing tution directory"
+        rm -rf tution
+      fi
+
+      echo "Cloning test branch..."
+      git clone -b main https://github.com/debayanChakra/tution.git
+
+      echo "Listing contents..."
+      ls -la tution
+    displayName: Clone repo and list schema file
+  - script: |
+      echo "Installing AzCopy..."
+      wget https://aka.ms/downloadazcopy-v10-linux -O azcopy.tar.gz
+      tar -xf azcopy.tar.gz
+      AZCOPY_DIR=$(find . -type d -name "azcopy_linux*")
+      sudo cp "$AZCOPY_DIR/azcopy" /usr/local/bin/
+      azcopy --version
+    displayName: Install AzCopy
+  - script: |
+        azcopy copy 'tution/schema.json' 'https://datamodelling.dfs.core.windows.net/schema/schema/schema.json?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-07-12T20:15:25Z&st=2025-07-12T12:15:25Z&spr=https&sig=0IZAmfPXmkpuBMraJUXWrcjUfO1myrZc3xqkcowBaUE%3D' --recursive=true
