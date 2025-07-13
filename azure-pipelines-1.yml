@@ -32,4 +32,4 @@ steps:
       azcopy --version
     displayName: Install AzCopy
   - script: |
-        azcopy copy 'ADE_Project_new/schema.json' 'https://datamodelling.dfs.core.windows.net/schema/schema/schema.json?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2025-07-15T17:35:35Z&st=2025-07-12T09:35:35Z&spr=https,http&sig=7bw2GQgV83U8XfgOQzcI3GiQxjJGnh4%2B2xJH%2B2nrpDw%3D' --recursive=true
+        azcopy copy 'ADE_Project_new/schema.json' 'https://adlsgen2forhamdson.dfs.core.windows.net/schema/schema/schema.json?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2025-07-15T17:35:35Z&st=2025-07-12T09:35:35Z&spr=https,http&sig=7bw2GQgV83U8XfgOQzcI3GiQxjJGnh4%2B2xJH%2B2nrpDw%3D' --recursive=true
